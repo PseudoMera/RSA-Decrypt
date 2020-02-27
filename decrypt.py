@@ -29,7 +29,7 @@ def primes_of_n(num, primes):
                 return (x,y)
     return -1
 
-def modInverse(a, m) : 
+def mod_inverse(a, m) : 
     a = a % m; 
     for x in range(1, m) : 
         if ((a * x) % m == 1) : 
@@ -42,12 +42,14 @@ def decrypt_result(nums):
         results.append(pow(int(num), decryption_key, N))
     return results
 
+
 def recipher_result(nums):
     results = []
     for num in nums:
         results.append(pow(num, E, N))
     return results
 
+#Message to be decrypted
 binary_number = '00110100 00111001 00100000 00110001 00110000 00110111 00100000 00110100 00110110'
 E = 13
 N = 119
@@ -68,11 +70,10 @@ P, Q = primes_of_n(N, primes_less_than_n)
 PHI = (P - 1) * (Q - 1)
 
 #Key
-decryption_key = modInverse(E, PHI)
+decryption_key = mod_inverse(E, PHI)
 
 #Results
 result = decrypt_result(numbers)
 
 #Recipher
 recipher_numbers = recipher_result(result)
-
