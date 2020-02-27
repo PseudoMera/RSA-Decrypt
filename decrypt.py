@@ -36,9 +36,23 @@ def modInverse(a, m) :
             return x 
     return 1
 
+def decrypt_result(nums):
+    results = []
+    for num in nums:
+        results.append(pow(int(num), decryption_key, N))
+    return results
+
+def recipher_result(nums):
+    results = []
+    for num in nums:
+        results.append(pow(num, E, N))
+    return results
+
 binary_number = '00110100 00111001 00100000 00110001 00110000 00110111 00100000 00110100 00110110'
 E = 13
 N = 119
+
+#Convert binary string to list
 list_of_numbers = binary_number.split(' ')
 
 #Decrypted numbers
@@ -50,15 +64,15 @@ primes_less_than_n = sieve_of_eratosthenes(N)
 #Two numbers that when multiplied equal N
 P, Q = primes_of_n(N, primes_less_than_n)
 
+#(P - 1) * (Q - 1)
 PHI = (P - 1) * (Q - 1)
 
+#Key
 decryption_key = modInverse(E, PHI)
-res1 = pow(int(numbers[0]), decryption_key, N)
-res2 = pow(int(numbers[1]), decryption_key, N)
-res3 = pow(int(numbers[2]), decryption_key, N)
 
-recipher1 = pow(res1, E, N)
-recipher2 = pow(res2, E, N)
-recipher3 = pow(res3, E, N)
+#Results
+result = decrypt_result(numbers)
 
+#Recipher
+recipher_numbers = recipher_result(result)
 
