@@ -29,15 +29,36 @@ def primes_of_n(num, primes):
                 return (x,y)
     return -1
 
+def modInverse(a, m) : 
+    a = a % m; 
+    for x in range(1, m) : 
+        if ((a * x) % m == 1) : 
+            return x 
+    return 1
+
 binary_number = '00110100 00111001 00100000 00110001 00110000 00110111 00100000 00110100 00110110'
 E = 13
 N = 119
 list_of_numbers = binary_number.split(' ')
+
+#Decrypted numbers
 numbers = decimal_to_text(list_of_numbers)
+
+#All primes from 2 to n
 primes_less_than_n = sieve_of_eratosthenes(N)
-prime1, prime2 = primes_of_n(N, primes_less_than_n)
-print(prime1, prime2)
-# num1 = ''.join(numbers[0:2])
-# num2 = ''.join(numbers[2:5])
-# num3 = ''.join(numbers[5:])
+
+#Two numbers that when multiplied equal N
+P, Q = primes_of_n(N, primes_less_than_n)
+
+PHI = (P - 1) * (Q - 1)
+
+decryption_key = modInverse(E, PHI)
+res1 = pow(int(numbers[0]), decryption_key, N)
+res2 = pow(int(numbers[1]), decryption_key, N)
+res3 = pow(int(numbers[2]), decryption_key, N)
+
+recipher1 = pow(res1, E, N)
+recipher2 = pow(res2, E, N)
+recipher3 = pow(res3, E, N)
+
 
